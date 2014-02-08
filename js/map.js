@@ -9,12 +9,21 @@ var MapUtils = {
  	 */
 	mark :
 		function ( target_p, imgFileName){
-			//TODO: ここにサムネイル化する処理を追加する。
 			var marker = new google.maps.Marker({
 				position: target_p,
-				map: map,
-				icon: imgFileName});
+				map: map
+				});
 			marker.setMap(map);
+			return marker;
+		},
+
+	/**
+	 * map上のマーカーにインフォメーションを表示
+	 */
+	infoWindow : 
+		function (map, marker, contentHtml) {
+			var infoWindow = new google.maps.InfoWindow({content: contentHtml});
+			infoWindow.open(map, marker);
 		},
 
 	/**

@@ -33,8 +33,13 @@ function initialize() {
 		var mm = MapUtils.toDistance( current_p, target_p );
 
 		if( mm <= RANGE ){
-			MapUtils.mark( target_p, IMG_FOLDER + data[k][0] + " " + data[k][1] + "/" + data[k][2] + " " + data[k][3] + ".jpg" );
+			var title = data[1][3];
+			var imgPath = IMG_FOLDER + data[k][0] + " " + data[k][1] + "/" + data[k][2] + " " + data[k][3] + ".jpg";
+			var marker = MapUtils.mark( target_p );
+			MapUtils.infoWindow(map, marker, "<div>"  + title + "</div><div class='nailthumb-container square-thumb'><img src='" + imgPath +"'></div>");
 		}
 	}
+	
+	setTimeout(function (){$(".nailthumb-container").nailthumb();}, 1000);
 }
 google.maps.event.addDomListener(window, 'load', initialize);
