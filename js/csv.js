@@ -1,19 +1,19 @@
 /**
- * CSVƒ†[ƒeƒBƒŠƒeƒBƒNƒ‰ƒX
+ * CSVãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£ã‚¯ãƒ©ã‚¹
  */
 var CsvUtils = {
 	/**
-	 * csvƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İA2ŸŒ³”z—ñ‚Å•Ô‚·B
-	 * filePath csvÌ§²ÙÉ‘Š‘ÎÊß½orâ‘ÎÊß½
+	 * csvãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿ã€2æ¬¡å…ƒé…åˆ—ã§è¿”ã™ã€‚
+	 * filePath csvï¾Œï½§ï½²ï¾™ï¾‰ç›¸å¯¾ï¾Šï¾Ÿï½½orçµ¶å¯¾ï¾Šï¾Ÿï½½
 	 */
 	csv2Array : 
 		function(filePath) {
 			var csvData = new Array();
 			var data = new XMLHttpRequest();	
-			data.open("GET", filePath, false); //true:”ñ“¯Šú,false:“¯Šú
+			data.open("GET", filePath, false); //true:éåŒæœŸ,false:åŒæœŸ
 			data.send(null);
 
-			var LF = String.fromCharCode(10); //‰üsº°ÄŞ
+			var LF = String.fromCharCode(10); //æ”¹è¡Œï½ºï½°ï¾„ï¾
 			var lines = data.responseText.split(LF);
 			for (var i = 0; i < lines.length;++i) {
 				var cells = lines[i].split(",");

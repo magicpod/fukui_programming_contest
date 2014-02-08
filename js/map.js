@@ -1,24 +1,24 @@
 /**
- * ’n}‚ÉŠÖ”ƒ†ƒeƒBƒŠƒeƒBƒNƒ‰ƒX
+ * åœ°å›³ã«é–¢æ•°ãƒ¦ãƒ†ã‚£ãƒªãƒ†ã‚£ã‚¯ãƒ©ã‚¹
  */
 var MapUtils = {
 	/**
-	 * Mapã‚Éƒ}[ƒJ[‚ğ•t‚¯‚é
-	 * @param target_p ˆÜ“xEŒo“x(LatLng)
+	 * Mapä¸Šã«ãƒãƒ¼ã‚«ãƒ¼ã‚’ä»˜ã‘ã‚‹
+	 * @param target_p ç·¯åº¦ãƒ»çµŒåº¦(LatLng)
  	 * @param imgFileName
  	 */
-	mark :
-		function ( target_p, imgFileName){
-			var marker = new google.maps.Marker({
-				position: target_p,
-				map: map
-				});
-			marker.setMap(map);
-			return marker;
-		},
+		mark :
+			function ( target_p, imgFileName){
+				var marker = new google.maps.Marker({
+					position: target_p,
+					map: map
+					});
+				marker.setMap(map);
+				return marker;
+			},
 
 	/**
-	 * mapã‚Ìƒ}[ƒJ[‚ÉƒCƒ“ƒtƒHƒ[ƒVƒ‡ƒ“‚ğ•\¦
+	 * mapä¸Šã®ãƒãƒ¼ã‚«ãƒ¼ã«ã‚¤ãƒ³ãƒ•ã‚©ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’è¡¨ç¤º
 	 */
 	infoWindow : 
 		function (map, marker, contentHtml) {
@@ -27,8 +27,8 @@ var MapUtils = {
 		},
 
 	/**
-	 * ‚Q‚Â‚ÌŒo“xˆÜ“x‚©‚ç‹——£(’PˆÊ:ƒ[ƒgƒ‹j‚ğZo‚·‚éB
-	 * ¦ from‚Æto‚ÍLatLngƒNƒ‰ƒX
+	 * ï¼’ã¤ã®çµŒåº¦ç·¯åº¦ã‹ã‚‰è·é›¢(å˜ä½:ãƒ¡ãƒ¼ãƒˆãƒ«ï¼‰ã‚’ç®—å‡ºã™ã‚‹ã€‚
+	 * â€» fromã¨toã¯LatLngã‚¯ãƒ©ã‚¹
 	 */
 	toDistance :
 		function (from, to) {
@@ -43,7 +43,7 @@ var MapUtils = {
 			var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 			var d = R * c;
 			
-			//’PˆÊ‚ÍƒLƒƒ[ƒgƒ‹Bƒ[ƒgƒ‹‚É‚·‚é‚Æ‚«‚Í‚P‚O‚O‚OŠ|‚¯‚é‚±‚Æ
+			//å˜ä½ã¯ã‚­ãƒ­ãƒ¡ãƒ¼ãƒˆãƒ«ã€‚ãƒ¡ãƒ¼ãƒˆãƒ«ã«ã™ã‚‹ã¨ãã¯ï¼‘ï¼ï¼ï¼æ›ã‘ã‚‹ã“ã¨
 			return (d * 1000);
 		}
 }

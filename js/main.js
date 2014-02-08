@@ -1,27 +1,46 @@
-/** ƒ}ƒbƒvƒIƒuƒWƒFƒNƒg */
+/** ãƒãƒƒãƒ—ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ */
 var map;
-
-/** Œ»İ’n‚©‚ç•\¦‚·‚é”½‰f */
+/** ç¾åœ¨åœ°ã‹ã‚‰è¡¨ç¤ºã™ã‚‹åæ˜  */
 var RANGE = 1000;
-
-/** ‰æ‘œƒtƒ@ƒCƒ‹‚ª‚ ‚éƒtƒHƒ‹ƒ_ */
+/** ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ãŒã‚ã‚‹ãƒ•ã‚©ãƒ«ãƒ€ */
 var IMG_FOLDER = "img/"
-
-/** CSVƒtƒ@ƒCƒ‹‚ª‚ ‚éƒtƒHƒ‹ƒ_ */
+/** CSVãƒ•ã‚¡ã‚¤ãƒ«ãŒã‚ã‚‹ãƒ•ã‚©ãƒ«ãƒ€ */
 var CSV_FOLDER = "csv/"
 
 /**
- * ‰Šú‰»
+ * åˆæœŸå‡¦ç†
  */
 function initialize() {
-	//CSVƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+    if (navigator.geolocation) {
+        // ç¾åœ¨ã®ä½ç½®æƒ…å ±å–å¾—ã‚’å®Ÿæ–½
+        navigator.geolocation.getCurrentPosition(
+			// ä½ç½®æƒ…å ±å–å¾—æˆåŠŸæ™‚
+			function (pos) {
+				// ç¾åœ¨ä½ç½®ã®èª­ã¿è¾¼ã¿
+				var current_p = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+				markPicture(current_p);
+			},
+			function (pos) {
+        		window.alert("æœ¬ãƒ–ãƒ©ã‚¦ã‚¶ã§ã¯GeolocationãŒä½¿ãˆã¾ã›ã‚“");
+			});
+			
+    } else {
+        window.alert("æœ¬ãƒ–ãƒ©ã‚¦ã‚¶ã§ã¯GeolocationãŒä½¿ãˆã¾ã›ã‚“");
+    }
+}
+
+/**
+ * åœ°å›³ã«ãµã‚‹ã•ã¨ç™¾æ™¯ã‚’è¡¨ç¤ºã™ã‚‹å‡¦ç†
+ * @param current_p ç¾åœ¨ã®è¡¨ç¤ºä½ç½®
+ */
+function markPicture(current_p) {
+	//CSVãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
 	var data = CsvUtils.csv2Array(CSV_FOLDER + 'hyakkei.csv');
 
-	//Œ»İˆÊ’u‚Ì“Ç‚İ‚İ  ÅI“I‚É‚ÍƒfƒoƒCƒX‚©‚çŒ»İ‚ÌˆÊ’uî•ñ‚ğæ“¾‚·‚éB
-	var current_p = new google.maps.LatLng(data[1][4],data[1][5]);
-	//TODO:‰–Ø ‚±‚±‚ÉŒ»İˆÊ’u‚ğæ“¾‚·‚éˆ—‚ğ‹LÚ‚·‚éB
+	//TODO:ã€€ç¾åœ¨åœ°ã‚’å–å¾—ã™ã‚‹ã¨ã€ç¦äº•çœŒã®ã‚ªãƒ¼ãƒ—ãƒ³ãƒ‡ãƒ¼ã‚¿ã‚’ã¤ã‹ã£ã¦ãƒ†ã‚¹ãƒˆã§ããªã„ã®ã§ã€ä¸€æ™‚çš„ã«CSVã®ï¼‘è¡Œç›®ã®ãƒ‡ãƒ¼ã‚¿ã‚’ç¾åœ¨ä½ç½®ã¨ã™ã‚‹ã€‚
+	current_p = new google.maps.LatLng(data[1][4], data[1][5]); 
 
-	//’n}•\¦
+	//åœ°å›³è¡¨ç¤º
 	var mapOptions = {
 		zoom: 15,	
 		center: current_p
@@ -39,7 +58,8 @@ function initialize() {
 			MapUtils.infoWindow(map, marker, "<div>"  + title + "</div><div class='nailthumb-container square-thumb'><img src='" + imgPath +"'></div>");
 		}
 	}
-	
+
 	setTimeout(function (){$(".nailthumb-container").nailthumb();}, 1000);
 }
+
 google.maps.event.addDomListener(window, 'load', initialize);
