@@ -8,22 +8,17 @@ var MapUtils = {
  	 * @param imgFileName
  	 */
 	mark :
-		function ( target_p, imgFileName){
+		function ( target_p, map, contentHtml){
 			var marker = new google.maps.Marker({
 				position: target_p,
 				map: map
 				});
 			marker.setMap(map);
-			return marker;
-		},
-
-	/**
-	 * map上のマーカーにインフォメーションを表示
-	 */
-	infoWindow : 
-		function (map, marker, contentHtml) {
+			
 			var infoWindow = new google.maps.InfoWindow({content: contentHtml});
 			infoWindow.open(map, marker);
+			
+			return marker;
 		},
 
 	/**

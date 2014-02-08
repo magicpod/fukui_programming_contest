@@ -35,8 +35,7 @@ function initialize() {
 		if( mm <= RANGE ){
 			var title = data[1][3];
 			var imgPath = IMG_FOLDER + data[k][0] + " " + data[k][1] + "/" + data[k][2] + " " + data[k][3] + ".jpg";
-			var marker = MapUtils.mark( target_p );
-			MapUtils.infoWindow(map, marker, "<div>"  + title + "</div><div class='nailthumb-container square-thumb'><img src='" + imgPath +"'></div>");
+			var marker = MapUtils.mark( target_p , map, "<div>"  + title + "</div><div class='nailthumb-container square-thumb'><img src='" + imgPath +"'></div>");
 		}
 	}
 	
