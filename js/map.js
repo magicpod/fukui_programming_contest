@@ -16,6 +16,10 @@ var MapUtils = {
 			marker.setMap(map);
 			
 			var infoWindow = new google.maps.InfoWindow({content: contentHtml});
+			google.maps.event.addListener(marker, "click", function() {
+				infoWindow.open(map, marker);
+			});
+
 			infoWindow.open(map, marker);
 			
 			return marker;
