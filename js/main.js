@@ -1,3 +1,21 @@
+function CurrentObj(currentLatitude, currentLongitude) {
+	this.setCurrentPos(currentLatitude, currentLongitude);
+}
+CurrentObj.prototype.setCurrentPos = function(currentLatitude, currentLongitude) {
+	this.latitude = currentLatitude;
+	this.longitude = currentLongitude;	
+}
+CurrentObj.prototype.moveCurrent = function() {
+	var latlng = new google.maps.LatLng(this.latitude, this.longitude);
+	var opts = {
+    	zoom: 15,
+    	center: latlng,
+    	mapTypeId: google.maps.MapTypeId.ROADMAP
+  	};
+  	var map = new google.maps.Map(document.getElementById("map-canvas"), opts);
+	map.panTo(latlng);
+}
+
 /** マップオブジェクト */
 var map;
 /** 現在地から表示する反映 */
@@ -6,6 +24,10 @@ var RANGE = 1000;
 var IMG_FOLDER = "img/"
 /** CSVファイルがあるフォルダ */
 var CSV_FOLDER = "csv/"
+/** 初期位置 **/
+var HOME_POS = [36.062128, 136.223321];// 福井駅
+/** 現在位置を保持するオブジェクト */
+var currentObj = new CurrentObj(HOME_POS[0], HOME_POS[1]);
 
 /**
  * 初期処理
@@ -23,7 +45,6 @@ function initialize() {
 			function (pos) {
         		window.alert("本ブラウザではGeolocationが使えません");
 			});
-			
     } else {
         window.alert("本ブラウザではGeolocationが使えません");
     }
@@ -58,7 +79,11 @@ function markPicture(current_p) {
 			var marker = MapUtils.mark( target_p , map, infoWindowTag);
 		}
 	}
+}
 
+function moveHomePoint() {
+	currentObj.setCurrentPos(HOME_POS[0], HOME_POS[1]);
+	currentObj.moveCurrent();
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
