@@ -54,11 +54,11 @@ function markPicture(current_p) {
 		if( mm <= RANGE ){
 			var title = data[1][3];
 			var imgPath = IMG_FOLDER + data[k][0] + " " + data[k][1] + "/" + data[k][2] + " " + data[k][3] + ".jpg";
-			var marker = MapUtils.mark( target_p , map, "<div>"  + title + "</div><div class='nailthumb-container square-thumb'><img src='" + imgPath +"'></div>");
+			var infoWindowTag = '<div><div>'+title+'</div><div style="height:180px;width:260px;"><a href="'+imgPath+'" class="thumbnail"><img data-src="holder.js/100%x250" alt="'+title+'" src="' + imgPath + '"></a></div></div>'
+			var marker = MapUtils.mark( target_p , map, infoWindowTag);
 		}
 	}
 
-	setTimeout(function (){$(".nailthumb-container").nailthumb();}, 1000);
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
