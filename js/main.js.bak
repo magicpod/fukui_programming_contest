@@ -3,13 +3,13 @@ function CurrentObj(currentLatitude, currentLongitude) {
 }
 CurrentObj.prototype.setCurrentPos = function(currentLatitude, currentLongitude) {
 	this.latitude = currentLatitude;
-	this.longitude = currentLongitude;
-	this.latlng = new google.maps.LatLng(this.latitude, this.longitude);	
+	this.longitude = currentLongitude;	
 }
 CurrentObj.prototype.moveCurrent = function() {
+	var latlng = new google.maps.LatLng(this.latitude, this.longitude);
 	var opts = {
     	zoom: 15,
-    	center: this.latlng ,
+    	center: latlng,
     	mapTypeId: google.maps.MapTypeId.ROADMAP
   	};
   	var map = new google.maps.Map(document.getElementById("map-canvas"), opts);
@@ -59,11 +59,11 @@ function initialize() {
  */
 function changeMarkRange(range) {
 	//-------------------------------------------------------------------------------------------------------------------------
-	markPicture(currentObj.latlng, range);
+	markPicture(currentObj, range);
 
     // 丸のオプションを設定   
     var circleOptions = {   
-        center: currentObj.latlng,//基点となる座標
+        center: new google.maps.LatLng(data[1][4], data[1][5]),//基点となる座標
         radius: range,//円の半径 
         strokeWeight: 3,   
         strokeColor: "#000055",//円の線の色
@@ -86,6 +86,9 @@ function changeMarkRange(range) {
 function markPicture(current_p, range) {
 	//CSVファイルの読み込み
 	var data = CsvUtils.csv2Array(CSV_FOLDER + 'hyakkei.csv');
+
+	//TODO:　現在地を取得すると、福井県のオープンデータをつかってテストできないので、一時的にCSVの１行目のデータを現在位置とする。
+	current_p = new google.maps.LatLng(data[1][4], data[1][5]); 
 
 	//地図表示
 	var mapOptions = {
