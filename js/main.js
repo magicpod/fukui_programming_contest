@@ -16,6 +16,8 @@ CurrentObj.prototype.moveCurrent = function() {
 	map.panTo(latlng);
 }
 
+/** ナビゲーションマップ */
+var navi_map;
 /** マップオブジェクト */
 var map;
 /** 初期の表示範囲 */
@@ -32,28 +34,31 @@ var CSV_FOLDER = "csv/"
 var HOME_POS = [36.062128, 136.223321];// 福井駅
 /** 現在位置を保持するオブジェクト */
 var currentObj = new CurrentObj(HOME_POS[0], HOME_POS[1]);
-
+/**　ナビゲーションマップのセンタの経度・緯度 */
+var NAVI_MAP_CENTER = new google.maps.LatLng(36.0349,136.1306)
+/** 地名 */
+var PLACE_NAME = {
+	/** あわら温泉屋台村 湯けむり横丁 */
+	YUKEMURI : new google.maps.LatLng(36.224214, 136.190476)
+}
 /**
  * 初期処理
  */
 function initialize() {
-   //  if (navigator.geolocation) {
-   //      // 現在の位置情報取得を実施
-   //      navigator.geolocation.getCurrentPosition(
-			// // 位置情報取得成功時
-			// function (pos) {
-			// 	// 現在位置の読み込み
-			// 	var current_p = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-			// 	markPicture(current_p, INIT_RANGE);
-			// },
-			// function (pos) {
-   //      		window.alert("本ブラウザではGeolocationが使えません");
-			// });
-   //  } else {
-   //      window.alert("本ブラウザではGeolocationが使えません");
-   //  }
-   //moveHomePoint();
-   markPicture(currentObj.latlng, INIT_RANGE);
+	//ナビゲーションマップ
+	drawNaviMap();
+	//詳細マップ	
+	markPicture(currentObj.latlng, INIT_RANGE);
+}
+
+function drawNaviMap(){
+	alert("とりあえず表示！！");
+	//地図表示
+	var mapOptions = {
+		zoom: 6,	
+		center: NAVI_MAP_CENTER
+	};
+	navi_map = new google.maps.Map(document.getElementById('navimap-canvas'), mapOptions);
 }
 
 /**
