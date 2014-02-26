@@ -37,21 +37,23 @@ var currentObj = new CurrentObj(HOME_POS[0], HOME_POS[1]);
  * 初期処理
  */
 function initialize() {
-    if (navigator.geolocation) {
-        // 現在の位置情報取得を実施
-        navigator.geolocation.getCurrentPosition(
-			// 位置情報取得成功時
-			function (pos) {
-				// 現在位置の読み込み
-				var current_p = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-				markPicture(current_p, INIT_RANGE);
-			},
-			function (pos) {
-        		window.alert("本ブラウザではGeolocationが使えません");
-			});
-    } else {
-        window.alert("本ブラウザではGeolocationが使えません");
-    }
+   //  if (navigator.geolocation) {
+   //      // 現在の位置情報取得を実施
+   //      navigator.geolocation.getCurrentPosition(
+			// // 位置情報取得成功時
+			// function (pos) {
+			// 	// 現在位置の読み込み
+			// 	var current_p = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+			// 	markPicture(current_p, INIT_RANGE);
+			// },
+			// function (pos) {
+   //      		window.alert("本ブラウザではGeolocationが使えません");
+			// });
+   //  } else {
+   //      window.alert("本ブラウザではGeolocationが使えません");
+   //  }
+   //moveHomePoint();
+   markPicture(currentObj.latlng, INIT_RANGE);
 }
 
 /**
@@ -87,6 +89,9 @@ function markPicture(current_p, range) {
 	//CSVファイルの読み込み
 	var data = CsvUtils.csv2Array(CSV_FOLDER + 'hyakkei.csv');
 
+	//TODO:　現在地を取得すると、福井県のオープンデータをつかってテストできないので、一時的にCSVの１行目のデータを現在位置とする。
+	current_p = new google.maps.LatLng(data[1][4], data[1][5]); 
+
 	//地図表示
 	var mapOptions = {
 		zoom: 15,	
@@ -100,11 +105,14 @@ function markPicture(current_p, range) {
 
 	
 		if( mm <= range ){
-			var title = data[1][3];
-			var imgPath = IMG_FOLDER + data[k][0] + " " + data[k][1] + "/" + data[k][2] + " " + data[k][3] + ".jpg";
+			var title = data[k][3];
+			var imgName = data[k][2] + " " + data[k][3] + ".jpg";
+			var imgPath = IMG_FOLDER + data[k][0] + " " + data[k][1] + "/" + imgName;
+			var thumPath = IMG_FOLDER + "thum/" + imgName;
+			
 			//画面下部に画像を表示するために、作成したimgPathをグローバルな配列へ格納
 			imgPathArray.push(imgPath);
-			var infoWindowTag = '<div><div>'+title+'</div><div style="height:180px;width:260px;"><a href="'+imgPath+'" class="thumbnail"><img data-src="holder.js/100%x250" alt="'+title+'" src="' + imgPath + '"></a></div></div>'
+			var infoWindowTag = '<div><div ><a href="'+imgPath+'" rel="lightbox" alt="'+title+'" title="'+title+'"><img  alt="'+title+'" src="' + thumPath + '"></a></div><div><a href="http://www.google.co.jp/search?hl=ja&source=hp&q='+title+'" target="_blank">詳しく調べる</a></div></div>'
 			var marker = MapUtils.mark( target_p , map, infoWindowTag);
 		}
 	}
