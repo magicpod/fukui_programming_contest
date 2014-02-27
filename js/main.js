@@ -21,7 +21,7 @@ var navi_map;
 /** マップオブジェクト */
 var map;
 /** 初期の表示範囲 */
-var INIT_RANGE = 1000;
+var INIT_RANGE = 300000;
 
 /** 写真のパスの配列 */
 var imgPathArray = [];
@@ -90,7 +90,7 @@ function drawNaviMap(){
 	navi_map = new google.maps.Map(document.getElementById('navimap-canvas'), {});
 	//KMLを表示
 	var ctaLayer = new google.maps.KmlLayer({
-		url: 'https://dl.dropboxusercontent.com/u/36134036/fukui2/kml/fukui.kml',
+		url: 'https://dl.dropboxusercontent.com/u/270305421/fukui_programming_contest/fukui.kml',
 		map : navi_map
 	});
 	// マーカを付ける
@@ -152,9 +152,12 @@ function markPicture(current_p, range) {
 	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 	for (var k = 1; k < data.length; k++) {
 		var target_p = new google.maps.LatLng(data[k][4], data[k][5]);
-		var mm = MapUtils.toDistance( current_p, target_p );
 
-	
+		if(data[k][6] != '○'){
+			continue;			
+		}
+
+		var mm = MapUtils.toDistance( current_p, target_p );
 		if( mm <= range ){
 			var title = data[k][3];
 			var imgName = data[k][2] + " " + data[k][3] + ".jpg";
