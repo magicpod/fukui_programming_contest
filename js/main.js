@@ -112,7 +112,7 @@ function drawNaviMap(){
     		animation: google.maps.Animation.DROP
 		});
 
-		var contentHtml = "<a src='#' onclick='movePoint("+latlng.lat()+", "+latlng.lng()+",15)'><b>" + PLACE_NAME[key]["INFO"]  + "</b>"
+		var contentHtml = "<a src='#' onclick='movePoint("+latlng.lat()+", "+latlng.lng()+",15, "+INIT_RANGE+")'><b>" + PLACE_NAME[key]["INFO"]  + "</b>"
 		var infoWindow = new google.maps.InfoWindow({content: contentHtml});
 		infoWindow.open(navi_map, marker);
 
@@ -127,8 +127,6 @@ function drawNaviMap(){
  */
 function changeMarkRange(range, zooming) {
 	//-------------------------------------------------------------------------------------------------------------------------
-	markPicture(currentObj.latlng, range);
-
 	currentObj.moveCurrent(zooming);
 
     // 丸のオプションを設定   
@@ -189,9 +187,11 @@ function markPicture(current_p, range) {
 	}
 }
 
-function movePoint(latitude, longitude, zooming) {
+function movePoint(latitude, longitude, zooming, range) {
 	currentObj.setCurrentPos(latitude, longitude);
 	currentObj.moveCurrent(zooming);
+
+	markPicture(currentObj.latlng, range);
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
