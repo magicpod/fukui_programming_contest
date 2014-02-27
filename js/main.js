@@ -9,14 +9,14 @@ CurrentObj.prototype.setCurrentPos = function(currentLatitude, currentLongitude)
 	this.longitude = currentLongitude;
 	this.latlng = new google.maps.LatLng(this.latitude, this.longitude);	
 }
-CurrentObj.prototype.moveCurrent = function() {
+CurrentObj.prototype.moveCurrent = function(zooming) {
 	var opts = {
-    	zoom: 15,
+    	zoom: zooming,
     	center: this.latlng ,
     	mapTypeId: google.maps.MapTypeId.ROADMAP
   	};
   	var map = new google.maps.Map(document.getElementById("map-canvas"), opts);
-	map.panTo(latlng);
+	map.panTo(this.latlng);
 }
 
 /** ナビゲーションマップ */
@@ -112,7 +112,7 @@ function drawNaviMap(){
     		animation: google.maps.Animation.DROP
 		});
 
-		var contentHtml = "<a src='#' onclick='movePoint("+latlng.lat()+", "+latlng.lng()+")'><b>" + PLACE_NAME[key]["INFO"]  + "</b>"
+		var contentHtml = "<a src='#' onclick='movePoint("+latlng.lat()+", "+latlng.lng()+",15)'><b>" + PLACE_NAME[key]["INFO"]  + "</b>"
 		var infoWindow = new google.maps.InfoWindow({content: contentHtml});
 		infoWindow.open(navi_map, marker);
 
@@ -125,9 +125,11 @@ function drawNaviMap(){
 /**
  * 地図上のマークをつける範囲を変更する処理
  */
-function changeMarkRange(range) {
+function changeMarkRange(range, zooming) {
 	//-------------------------------------------------------------------------------------------------------------------------
 	markPicture(currentObj.latlng, range);
+
+	currentObj.moveCurrent(zooming);
 
     // 丸のオプションを設定   
     var circleOptions = {   
@@ -156,7 +158,7 @@ function markPicture(current_p, range) {
 	var data = CsvUtils.csv2Array(CSV_FOLDER + 'hyakkei.csv');
 
 	//TODO:　現在地を取得すると、福井県のオープンデータをつかってテストできないので、一時的にCSVの１行目のデータを現在位置とする。
-	current_p = new google.maps.LatLng(data[1][4], data[1][5]); 
+	//current_p = new google.maps.LatLng(data[1][4], data[1][5]); 
 
 	//地図表示
 	var mapOptions = {
@@ -187,9 +189,9 @@ function markPicture(current_p, range) {
 	}
 }
 
-function movePoint(latitude, longitude) {
+function movePoint(latitude, longitude, zooming) {
 	currentObj.setCurrentPos(latitude, longitude);
-	currentObj.moveCurrent();
+	currentObj.moveCurrent(zooming);
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
