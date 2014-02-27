@@ -1,12 +1,16 @@
 function CurrentObj(currentLatitude, currentLongitude) {
 	this.setCurrentPos(currentLatitude, currentLongitude);
 }
+CurrentObj.prototype.setLatlng = function(currentLatlng){
+	this.latlng = currentLatlng;
+}
 CurrentObj.prototype.setCurrentPos = function(currentLatitude, currentLongitude) {
 	this.latitude = currentLatitude;
 	this.longitude = currentLongitude;
 	this.latlng = new google.maps.LatLng(this.latitude, this.longitude);	
 }
 CurrentObj.prototype.moveCurrent = function() {
+	alert(this.latlng);
 	var opts = {
     	zoom: 15,
     	center: this.latlng ,
@@ -21,7 +25,7 @@ var navi_map;
 /** マップオブジェクト */
 var map;
 /** 初期の表示範囲 */
-var INIT_RANGE = 300000;
+var INIT_RANGE = 3000;
 
 /** 写真のパスの配列 */
 var imgPathArray = [];
@@ -68,12 +72,14 @@ var PLACE_NAME = {
 	    	LATING : new google.maps.LatLng(36.055779, 136.354537),
 	    	INFO   : "永平寺"
 		},
-	/** 赤レンガ倉庫 */
-	HEIHEIJI :
-		{
-	    	LATING : new google.maps.LatLng(35.660444, 1136.076688),
-	    	INFO   : "赤レンガ倉庫"
-		}
+	// /** 赤レンガ倉庫 */
+	// HEIHEIJI :
+	// 	{
+	// 		LATITUDE : 36.224214,
+	// 		LONGITUDE : 136.076688,
+	//     	LATING : new google.maps.LatLng(35.660444, 136.076688),
+	//     	INFO   : "赤レンガ倉庫"
+	// 	}
 };
 /**
  * 初期処理
@@ -91,18 +97,28 @@ function drawNaviMap(){
 	//KMLを表示
 	var ctaLayer = new google.maps.KmlLayer({
 		url: 'https://dl.dropboxusercontent.com/u/270305421/fukui_programming_contest/fukui.kml',
+		//url: 'https://dl.dropboxusercontent.com/u/232551663/fukui_programming_contest/kml/fukui.kml',
+		
 		map : navi_map
 	});
+
 	// マーカを付ける
 	for(var key in PLACE_NAME){
+
 		var marker = new google.maps.Marker({
 			position: PLACE_NAME[key]["LATING"],
 			map: navi_map,
 		    draggable:true,
     		animation: google.maps.Animation.DROP
 		});
+
+		var contentHtml = "<b>" + PLACE_NAME[key]["INFO"]  + "</b>"
+		var infoWindow = new google.maps.InfoWindow({content: contentHtml});
+		infoWindow.open(navi_map, marker);
+
 		google.maps.event.addListener(marker, 'click', function() {
-			alert(PLACE_NAME[key]["LATING"]);		
+			currentObj.setLatlng(PLACE_NAME[key]["LATING"])
+			currentObj.moveCurrent();		
   		});
 	}
 }
