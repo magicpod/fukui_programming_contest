@@ -35,10 +35,10 @@ background-image: linear-gradient(to bottom right, #FFFFFF 0%, #000000 300%);
 
 #map-canvas {
 	width: 100%;
-	height: 480px;
+	height: 420px;
 }
 
 #navimap-canvas {
 	width: 100%;
-	height: 480px;
+	height: 460px;
 }
