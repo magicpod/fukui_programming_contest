@@ -10,7 +10,6 @@ CurrentObj.prototype.setCurrentPos = function(currentLatitude, currentLongitude)
 	this.latlng = new google.maps.LatLng(this.latitude, this.longitude);	
 }
 CurrentObj.prototype.moveCurrent = function() {
-	alert(this.latlng);
 	var opts = {
     	zoom: 15,
     	center: this.latlng ,
@@ -96,8 +95,8 @@ function drawNaviMap(){
 	navi_map = new google.maps.Map(document.getElementById('navimap-canvas'), {});
 	//KMLを表示
 	var ctaLayer = new google.maps.KmlLayer({
-		url: 'https://dl.dropboxusercontent.com/u/270305421/fukui_programming_contest/fukui.kml',
-		//url: 'https://dl.dropboxusercontent.com/u/232551663/fukui_programming_contest/kml/fukui.kml',
+		//url: 'https://dl.dropboxusercontent.com/u/270305421/fukui_programming_contest/fukui.kml',
+		url: 'https://dl.dropboxusercontent.com/u/232551663/fukui_programming_contest/kml/fukui.kml',
 		
 		map : navi_map
 	});
@@ -105,20 +104,20 @@ function drawNaviMap(){
 	// マーカを付ける
 	for(var key in PLACE_NAME){
 
+		var latlng = PLACE_NAME[key]["LATING"];
 		var marker = new google.maps.Marker({
-			position: PLACE_NAME[key]["LATING"],
+			position: latlng,
 			map: navi_map,
 		    draggable:true,
     		animation: google.maps.Animation.DROP
 		});
 
-		var contentHtml = "<b>" + PLACE_NAME[key]["INFO"]  + "</b>"
+		var contentHtml = "<a src='#' onclick='movePoint("+latlng.lat()+", "+latlng.lng()+")'><b>" + PLACE_NAME[key]["INFO"]  + "</b>"
 		var infoWindow = new google.maps.InfoWindow({content: contentHtml});
 		infoWindow.open(navi_map, marker);
 
 		google.maps.event.addListener(marker, 'click', function() {
-			currentObj.setLatlng(PLACE_NAME[key]["LATING"])
-			currentObj.moveCurrent();		
+			infoWindow.open(navi_map, marker);
   		});
 	}
 }
@@ -188,8 +187,8 @@ function markPicture(current_p, range) {
 	}
 }
 
-function moveHomePoint() {
-	currentObj.setCurrentPos(HOME_POS[0], HOME_POS[1]);
+function movePoint(latitude, longitude) {
+	currentObj.setCurrentPos(latitude, longitude);
 	currentObj.moveCurrent();
 }
 
