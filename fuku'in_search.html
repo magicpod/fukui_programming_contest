@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>ふるさと百景(仮)</title>
+<title>fuku'in search</title>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 <meta charset="utf-8">
 
@@ -41,7 +41,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#"><p class="title">福井県&nbsp;寄り道検索</p></a>
+          <a class="navbar-brand" href="#"><p class="title">fuku'in search&nbsp;~福井県&nbsp;寄り道検索~</p></a>
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
@@ -53,25 +53,25 @@
       </div>
     </div>
     <div class="container">
-		<div class="contents">
-			<div class="row">
-			  <div class="col-xs-6 col-md-5">
-			    <div><h3>おすすめ観光地<!--<a href="#" onclick="moveHomePoint()">test</a>--></h3></div>
-        		<div id="navimap-canvas"></div>
-			  </div>
-			  <div class="col-xs-5 col-md-7">
-			    <div class="btn-group btn-group-justified">
-			      <a class="btn btn-default" role="button"><img src="img/icon/car.png" onClick="changeMarkRange(5000)">&nbsp;車で10分</a>
-			      <a class="btn btn-default" role="button"><img src="img/icon/car.png" onClick="changeMarkRange(15000)">&nbsp;車で30分</a>
-			      <a class="btn btn-default" role="button"><img src="img/icon/weman.png" onClick="changeMarkRange(800)">&nbsp;徒歩で10分</a>
-			    </div>
-				<div class="contents">
-					<div id="map-canvas"></div>
-				</div>
-			  </div>
-			</div>
-			
-		</div>
+  		<div class="contents">
+  			<div>福井県のおすすめ観光地付近にある、合わせて行きたい観光地を検索できます。</div>
+        <div class="row">
+  			  <div class="col-xs-6 col-md-5">
+  			    <div><h4>①おすすめ観光地</h3></div>
+          	<div id="navimap-canvas"></div>
+  			  </div>
+  			  <div class="col-xs-5 col-md-7">
+  			    <div><h4>②周辺観光地</h3></div>
+            <div id="map-canvas"></div>
+            <div class="btn-group btn-group-justified">
+  			      <a class="btn btn-default" role="button"><img src="icon/weman.png" onClick="changeMarkRange(800)">&nbsp;徒歩で10分</a>
+              <a class="btn btn-default" role="button"><img src="icon/car.png" onClick="changeMarkRange(5000)">&nbsp;車で10分</a>
+  			      <a class="btn btn-default" role="button"><img src="icon/car.png" onClick="changeMarkRange(10000)">&nbsp;車で20分</a>
+  			    </div>
+  			  </div>
+  			</div>
+  		</div>
+    </div>
 	</div>
 </body>
 </html>
