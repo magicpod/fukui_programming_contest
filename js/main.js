@@ -87,7 +87,7 @@ function initialize() {
 	//ナビゲーションマップ
 	drawNaviMap();
 	//詳細マップ	
-	markPicture(currentObj.latlng, INIT_RANGE);
+	//markPicture(currentObj.latlng, INIT_RANGE);
 }
 
 function drawNaviMap(){
@@ -128,14 +128,14 @@ function drawNaviMap(){
 function changeMarkRange(range, zooming) {
 	//-------------------------------------------------------------------------------------------------------------------------
 	currentObj.moveCurrent(zooming);
-
+	markPicture(currentObj.latlng, range, zooming);
     // 丸のオプションを設定   
     var circleOptions = {   
         center: currentObj.latlng,//基点となる座標
         radius: range,//円の半径 
         strokeWeight: 3,   
         strokeColor: "#000055",//円の線の色
-        strokeOpacity: 0.5,   
+        strokeOpacity: 0.75,   
         fillColor: "#0055ff",//円の内側の色   
         fillOpacity: 0.5   
     };   
@@ -151,7 +151,7 @@ function changeMarkRange(range, zooming) {
  * @param current_p 現在の表示位置
  * @param range 距離(単位:m)
  */
-function markPicture(current_p, range) {
+function markPicture(current_p, range, zooming) {
 	//CSVファイルの読み込み
 	var data = CsvUtils.csv2Array(CSV_FOLDER + 'hyakkei.csv');
 
@@ -160,7 +160,7 @@ function markPicture(current_p, range) {
 
 	//地図表示
 	var mapOptions = {
-		zoom: 15,	
+		zoom: zooming || 15,	
 		center: current_p
 	};
 	
@@ -189,9 +189,10 @@ function markPicture(current_p, range) {
 
 function movePoint(latitude, longitude, zooming, range) {
 	currentObj.setCurrentPos(latitude, longitude);
-	currentObj.moveCurrent(zooming);
+	$("#init_btn").click();
 
-	markPicture(currentObj.latlng, range);
+	//currentObj.moveCurrent(zooming);
+	//markPicture(currentObj.latlng, range);
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
