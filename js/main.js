@@ -41,36 +41,60 @@ var currentObj = new CurrentObj(HOME_POS[0], HOME_POS[1]);
 var NAVI_MAP_CENTER = new google.maps.LatLng(36.0349,136.1306);
 /** 地名 */
 var PLACE_NAME = {
-	/** あわら温泉屋台村 湯けむり横丁 */
-	YUKEMURI :
-		{
-			LATING : new google.maps.LatLng(36.224214, 136.190476),
-			INFO   : "あわら温泉屋台村 湯けむり横丁"
-		},
 	/** 東尋坊タワー */
 	TOUJINN_BOU :
 	    {
 	    	LATING : new google.maps.LatLng(36.237026, 136.129969),
 	    	INFO   : "東尋坊タワー"
 	    },
-	/** 越前松島水族館 */
-	SUI_ZOKU_KAN :
-		{
-	    	LATING : new google.maps.LatLng(36.2527, 136.14707),
-	    	INFO   : "越前松島水族館"
-		},
 	/** 福井県立恐竜博物館 */
-	KYOURYU_HAKUBUTUKAN :
+	// KYOURYU_HAKUBUTUKAN :
+	// 	{
+	//     	LATING : new google.maps.LatLng(36.083073, 136.509382),
+	//     	INFO   : "福井県立恐竜博物館"
+	// 	},
+	/** 明鏡洞 */
+	MEIKYODO :
 		{
-	    	LATING : new google.maps.LatLng(36.083073, 136.509382),
-	    	INFO   : "福井県立恐竜博物館"
-		},
-	/** 永平寺 */
-	HEIHEIJI :
+	    	LATING : new google.maps.LatLng(35.491875, 135.552057),
+	    	INFO   : "明鏡洞"
+		},		
+	/** 青葉山 */
+	// AOBASAN :
+	// 	{
+	//     	LATING : new google.maps.LatLng(35.505165, 135.483568),
+	//     	INFO   : "青葉山"
+	// 	},		
+	/** 丸岡城 */
+	// MARUOKAJYO :
+	// 	{
+	//     	LATING : new google.maps.LatLng(36.152364, 136.272112),
+	//     	INFO   : "丸岡城"
+	// 	},		
+	/** 一乗滝 */
+	// ICHIJOTAKI :
+	// 	{
+	//     	LATING : new google.maps.LatLng(35.980288, 136.304208),
+	//     	INFO   : "一乗滝"
+	// 	},			
+	/** 越前和紙の里 */
+	// ECHIZENWASHINOSATO :
+	// 	{
+	//     	LATING : new google.maps.LatLng(35.910765, 136.244715),
+	//     	INFO   : "越前和紙の里"
+	// 	},					
+	/** 九頭竜湖 */
+	KUZURYUKO :
 		{
-	    	LATING : new google.maps.LatLng(36.055779, 136.354537),
-	    	INFO   : "永平寺"
-		},
+	    	LATING : new google.maps.LatLng(35.904498, 136.661737),
+	    	INFO   : "九頭竜湖"
+		},		
+	/** 氣比神宮 */
+	KIHIJINGU :
+		{
+	    	LATING : new google.maps.LatLng(35.654959, 136.074701),
+	    	INFO   : "氣比神宮"
+		},																
 	// /** 赤レンガ倉庫 */
 	// HEIHEIJI :
 	// 	{
